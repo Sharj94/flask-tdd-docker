@@ -47,3 +47,4 @@ class Users(Resource):
         return user, 200
 
 api.add_resource(UsersList, '/users')
+api.add_resource(Users, '/users/<int:user_id>')

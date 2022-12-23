@@ -1,5 +1,4 @@
 import json
-from src import db
 from src.api.models import User
 
 def test_add_user(test_app, test_database):
@@ -63,10 +62,8 @@ def test_add_user_duplicate_email(test_app, test_database):
     assert 'Sorry. That email already exists.' in data['message']
 
 
-def test_single_user(test_app, test_database):
+def test_single_user(test_app, test_database, add_user):
     user = User(username='jeffrey', email='jeffrey@testdriven.io')
-    db.session.add(user)
-    db.session.commit()
     client = test_app.test_client()
     resp = client.get(f'/users/{user.id}')
     data = json.loads(resp.data.decode())
